@@ -1,0 +1,10 @@
+
+sudo apt update
+sudo apt-get install -y nodejs npm
+sudo apt-get install -y nginx
+sudo npm i -g pm2
+cd /etc/nginx/sites-available
+sudo nano default
+sudo systemctl restart nginx
+cd ~/actions-runner/_work/aws-nodejs/aws-nodejs
+pm2 start index.js --name="Backend"
