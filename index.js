@@ -10,12 +10,26 @@ const todos = [
     completed: false,
   },
 ];
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/api/get', (req, res) => {
-  res.send({ message: 'hello back to nodejs', name: process.env.NAME });
-});
 app.get('/api/todos', (req, res) => {
-  res.send({ todos });
+  res
+    .status(200)
+    .json({ message: 'hello back to nodejs', name: process.env.NAME, todos });
+});
+app.get('/api/todos/create', (req, res) => {
+  const { title = 'New ToDo' } = req.body;
+  if (!title)
+    return res.status(400).json({ error: 'Title is required for a todo.' });
+  const newTodo = {
+    id: todos.length + 1,
+    title,
+    completed: false,
+  };
+  todos.push(newTodo);
+
+  res.status(201).json(newTodo);
 });
 
 app.get('/', (req, res) => {
