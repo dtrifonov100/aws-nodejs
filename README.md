@@ -22,7 +22,7 @@ location /api {
 
 rewrite ^\/api\/(.\*)$ /api/$1 break;
 
-proxy_pass http://localhost:8000;
+proxy_pass http://localhost:5000;
 
 proxy_set_header Host $host;
 
